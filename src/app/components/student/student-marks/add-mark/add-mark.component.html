@@ -1,0 +1,225 @@
+<!-- *ngIf='oneClass' -->
+<div *ngIf=' opt === "add"'>
+  <!-- *ngIf='oneClass.id==0' -->
+  <div>
+
+    <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active border border-info border-bottom-0" id="addMark" data-toggle="tab" href="#addMark" role="tab" aria-controls="addMark"
+          aria-selected="true">Add Mark</a>
+      </li>
+
+
+    </ul>
+    <!-- <p>{{user.role.id}}</p> -->
+    <div class="tab-content ">
+      <div class="tab-pane p-3 active border border-info" id="addMark" role="tabpanel" aria-labelledby="addMark">
+        <div class="row align-self-center">
+          <div class=" offset-1 col-10   offset-sm-3 col-sm-6 offset-lg-4 col-lg-4">
+            <form ngNativeValidate (submit)='addMark(markValue.value, markType.value, description.value, date.value )'>
+
+              <br>
+              <h3 class='text-center'>Add Mark</h3>
+              <br>
+
+              <br>
+
+              <div class="form-group">
+                <h6>Mark Value:</h6>
+                <select name="markValue" #markValue class="form-control">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+              <hr>
+
+
+              <div class="form-group">
+                <h6>Mark Type:</h6>
+                <select name="markType" #markType class="form-control">
+                  <option value="4" *ngIf='type !== 1'>Final</option>
+                  <option value="1" *ngIf='type === 1'>Oral exam</option>
+                  <option value="2" *ngIf='type === 1'>Test</option>
+                  <option value="3" *ngIf='type === 1'>Activity</option>
+
+                </select>
+              </div>
+              <hr>
+
+
+
+
+              <div class='form-group'>
+                <h6>Description:</h6>
+                <textarea class="form-control" rows="2" cols="25" maxlength="50" #description></textarea>
+              </div>
+              <hr>
+
+
+              <div class='form-group'>
+
+
+
+                <input type="date" name="date" #date class="form-control">
+
+              </div>
+              <hr>
+
+
+
+
+              <div class="form-group">
+                  <button type="submit" class="btn btn-info btn-block btn-sm">Submit</button>
+                </div>
+  
+                <div class="form-group">
+                  <button type='button' class='btn btn-info btn-block  btn-sm ' (click)='goBack()'>
+                    &larr;Back
+                  </button>
+                </div>
+
+            </form>
+          </div>
+
+
+
+
+
+        </div>
+      </div>
+    </div>
+    <!-- TAB CONTENT END -->
+  </div>
+</div>
+<!-- <button type='button' class='btn btn-info' (click)='goBack()'>
+            &larr;Back
+          </button> -->
+<!-- ADD MARK END -->
+
+
+
+
+
+<!-- ####################################################################################
+####################################################################################
+######################### EDIT MARK ####################################
+####################################################################################
+#################################################################################### -->
+
+
+
+
+
+
+
+<div *ngIf='mark && opt'>
+  <div *ngIf='opt === "edit"'>
+
+    <ul class="nav nav-tabs border-0" id="myTab1" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active border border-info border-bottom-0" id="editMark" data-toggle="tab" href="#editMark" role="tab"
+          aria-controls="editMark" aria-selected="true">Edit Mark</a>
+      </li>
+
+
+    </ul>
+    <div class="tab-content ">
+      <div class="tab-pane p-3 active border border-info" id="editMark" role="tabpanel" aria-labelledby="editMark">
+        <div class="row align-self-center">
+          <div class=" offset-1 col-10   offset-sm-3 col-sm-6 offset-lg-4 col-lg-4">
+            <form *ngIf='mark.markType' ngNativeValidate (submit)='editMark()'>
+              <!-- markValue.value, markType.value, description.value  -->
+              <br>
+              <h3 class='text-center'>Edit Mark</h3>
+              <br>
+
+              <br>
+
+              <div class="form-group">
+                <h6>Mark Value:</h6>
+                <select name="markValue" #markValue class="form-control" [(ngModel)]='mark.markValue' [ngModelOptions]="{standalone: true}">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+              <hr>
+
+
+              <div class="form-group" *ngIf='mark.markType.id <4'>
+                <h6>Mark Type:</h6>
+                <select name="markType" #markType class="form-control" [(ngModel)]='mark.markType.id' [ngModelOptions]="{standalone: true}">
+                  <!-- <option value="0" >Final</option> -->
+                  <option value="1">Oral exam</option>
+                  <option value="2">Test</option>
+                  <option value="3">Activity</option>
+
+                </select>
+                <hr>
+              </div>
+
+
+
+
+
+              <div class='form-group'>
+                <h6>Description:</h6>
+                <textarea class="form-control" rows="2" cols="25" maxlength="50" #description [(ngModel)]='mark.description' [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
+              <hr>
+
+
+              <!-- <div class='form-group'>
+
+
+
+                  <input type="date" name="date" #date class="form-control">
+                  
+                </div>
+                <hr> -->
+
+
+
+
+              <div class="form-group">
+                <button type="submit" class="btn btn-info btn-block btn-sm">Submit</button>
+              </div>
+
+              <div class="form-group">
+                <button type='button' class='btn btn-info btn-block  btn-sm ' (click)='goBack()'>
+                  &larr;Back
+                </button>
+              </div>
+
+            </form>
+          </div>
+
+
+
+
+
+        </div>
+      </div>
+    </div>
+    <!-- TAB CONTENT END -->
+  </div>
+</div>
+
+
+<!--EDIT MARK END -->
+
+<!-- <div class="row">
+  <div class="offset-3 offset-sm-4"></div>
+
+
+  <div class=' col-6  col-sm-4 mt-2 mb-2'>
+    <button type='button' class='btn btn-info btn-block  btn-sm ' (click)='goBack()'>
+      &larr;Back
+    </button>
+  </div>
+</div> -->

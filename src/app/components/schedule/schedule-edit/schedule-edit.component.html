@@ -1,0 +1,264 @@
+<div *ngIf='schedule && allClasses && allTeachers && allSubjects'>
+  <div *ngIf='schedule.id'>
+    <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active border border-info border-bottom-0" id="updateClass" data-toggle="tab" href="#class" role="tab"
+          aria-controls="class" aria-selected="true">Update Class</a>
+      </li>
+
+
+    </ul>
+    <!-- <p>{{user.role.id}}</p> -->
+    <div class="tab-content ">
+      <div class="tab-pane p-3 active border border-info" id="class" role="tabpanel" aria-labelledby="updateClass">
+        <div class="row align-self-center">
+          <div class=" offset-1 col-10   offset-sm-3 col-sm-6 offset-lg-4 col-lg-4">
+            <form ngNativeValidate (submit)='editSchedule()'>
+              <!-- (ngSubmit)="" -->
+              <br>
+              <h3 class='text-center'>Update Class</h3>
+              <br>
+
+              <br>
+
+              <!-- CHOOSE TEACHER -->
+
+              <div class="form-group">
+                <h6>Choose Teacher:</h6>
+
+
+                <select name="teacher" #teacherInput class='form-control' [(ngModel)]='schedule.teacher.id' [ngModelOptions]="{standalone: true}">
+                  <option value="{{teacher.id}}" *ngFor='let teacher of allTeachers'>{{teacher.name}} {{teacher.lastname}}</option>
+
+                </select>
+              </div>
+
+
+              <hr>
+
+              <!-- CHOOSE TEACHER END -->
+
+
+
+              <!-- CHOOSE SUBJECT -->
+
+              <!-- 
+              <div class="form-group">
+                <h6>Choose Subject:</h6>
+
+
+                <select name="subject" #subject class='form-control'> -->
+
+
+              <!-- <option value="{{oneClass.headTeacher.id}}">{{oneClass.headTeacher.id}}.{{oneClass.headTeacher.name}} {{oneClass.headTeacher.lastname}}</option>  -->
+              <!-- <option value="{{sub.id}}" *ngFor='let sub of subjectNames'>{{sub.subjectName}}</option>
+
+                </select>
+              </div>
+
+
+              <hr> -->
+
+              <!-- CHOOSE SUBJECT END -->
+
+
+
+
+
+              <!-- CHOOSE CLASS -->
+              <!-- 
+              <div class="form-group">
+                <h6>Choose Class:</h6>
+
+
+                <select name="subject" #subject class='form-control'> -->
+
+
+              <!-- <option value="{{oneClass.headTeacher.id}}">{{oneClass.headTeacher.id}}.{{oneClass.headTeacher.name}} {{oneClass.headTeacher.lastname}}</option>  -->
+              <!-- <option value="{{sub.id}}" *ngFor='let sub of subjectNames'>{{sub.subjectName}}</option>
+
+                </select>
+              </div>
+
+
+              <hr> -->
+
+              <!-- CHOOSE CLASS END-->
+
+              <br>
+
+              <div class="form-group">
+                <button type="submit" class="btn btn-info btn-block btn-sm">Submit</button>
+              </div>
+
+
+
+
+              <button type='button' class='btn btn-info btn-block btn-sm' (click)='goBack()'>
+                &larr;Back
+              </button>
+
+
+            </form>
+            <!-- UPDATE FORM END -->
+
+          </div>
+        </div>
+      </div>
+      <!-- UPDATE TAB END -->
+
+
+
+
+    </div>
+
+  </div>
+</div>
+
+
+
+
+<!-- EDIT TEMPLATE END -->
+
+<!-- 
+  #################################################################################
+  #################################################################################
+  #################################################################################
+  ################################################################################# -->
+
+
+<!-- ADD NEW TEMPLATE_________________________________________________________________________________ -->
+
+
+<div *ngIf='schedule && allClasses && allTeachers && allSubjects'>
+
+  <div *ngIf='schedule.id==0'>
+
+    <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active border border-info border-bottom-0" id="addNewClass" data-toggle="tab" href="#newClass" role="tab"
+          aria-controls="newClass" aria-selected="true">Create New Schedule</a>
+      </li>
+
+
+    </ul>
+    <!-- <p>{{user.role.id}}</p> -->
+    <div class="tab-content ">
+      <div class="tab-pane p-3 active border border-info" id="newClass" role="tabpanel" aria-labelledby="addNewClass">
+        <div class="row align-self-center">
+          <div class=" offset-1 col-10   offset-sm-3 col-sm-6 offset-lg-4 col-lg-4">
+            <form ngNativeValidate (submit)='editSchedule(teacher.value, subject.value, cls.value  )'>
+              <!-- (ngSubmit)="" -->
+              <br>
+              <h3 class='text-center'>Create New Schedule</h3>
+              <br>
+              <br>
+
+
+
+
+
+
+
+
+
+              <!-- CHOOSE TEACHER -->
+
+              <div class="form-group">
+                <h6>Choose Teacher:</h6>
+
+
+                <select name="teacher" #teacher class='form-control'>
+
+
+                  <option value="{{teacher.id}}" *ngFor='let teacher of allTeachers'>{{teacher.name}} {{teacher.lastname}}</option>
+
+                </select>
+              </div>
+
+
+              <hr>
+
+              <!-- CHOOSE TEACHER END -->
+
+
+
+
+              <!-- CHOOSE SUBJECT -->
+
+
+              <div class="form-group">
+                <h6>Choose Subject:</h6>
+
+
+                <select name="subject" #subject class='form-control'>
+
+
+                  <!-- <option value="{{oneClass.headTeacher.id}}">{{oneClass.headTeacher.id}}.{{oneClass.headTeacher.name}} {{oneClass.headTeacher.lastname}}</option>  -->
+                  <option value="{{sub.id}}" *ngFor='let sub of allSubjects'>{{sub.subject.subjectName}} {{sub.grade.gradeValue}}</option>
+
+                </select>
+              </div>
+
+
+              <hr>
+
+              <!-- CHOOSE SUBJECT END -->
+
+
+
+
+
+              <!-- CHOOSE CLASS -->
+
+              <div class="form-group">
+                <h6>Choose Class:</h6>
+
+
+                <select name="class" #cls class='form-control'>
+
+
+                  <!-- <option value="{{oneClass.headTeacher.id}}">{{oneClass.headTeacher.id}}.{{oneClass.headTeacher.name}} {{oneClass.headTeacher.lastname}}</option>  -->
+                  <option value="{{class.id}}" *ngFor='let class of allClasses'>{{class.grade.gradeName}}/{{class.classNumber}}</option>
+
+                </select>
+              </div>
+
+
+              <hr>
+
+              <!-- CHOOSE CLASS END-->
+
+
+
+
+
+
+              <br>
+
+              <div class="form-group">
+                <button type="submit" class="btn btn-info btn-block btn-sm">Submit</button>
+              </div>
+
+              <button type='button' class='btn btn-info btn-block btn-sm' (click)='goBack()'>
+                &larr;Back
+              </button>
+
+            </form>
+            <!-- UPDATE FORM END -->
+
+          </div>
+        </div>
+      </div>
+      <!-- UPDATE TAB END -->
+
+
+
+
+    </div>
+
+
+
+
+  </div>
+</div>

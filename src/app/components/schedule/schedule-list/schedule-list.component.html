@@ -1,0 +1,54 @@
+<br>
+<div class="text-center">
+  <h1>Schedule List</h1>
+</div>
+
+
+<div class='offset-3 col-6  offset-sm-4 col-sm-4 '>
+  <br>
+  <input type="button" class='btn btn-info btn-block btn-sm' value='Add New Schedule' routerLink='/schedule_edit/0'>
+</div>
+
+
+<hr>
+
+
+<div *ngIf='allSchedules'>
+  <div *ngFor='let schedule of allSchedules'>
+
+    <div class='row'>
+      <div class='col-12  col-sm-10  '>
+        <div class="row">
+          <div class='col-1  col-sm-1'>
+            <p>#{{schedule.id}}.</p>
+          </div>
+
+          <div class='col-4  col-sm-4' *ngIf='schedule.teacher'>
+            <p>{{schedule.teacher.name}}/{{schedule.teacher.lastname}}</p>
+          </div>
+          <div class='col-4  col-sm-4' *ngIf='!schedule.teacher'>
+            <p>Not Set</p>
+          </div>
+
+          <div class='col-3  col-sm-3'>
+            <p>{{schedule.classEntity.grade.gradeName}}/{{schedule.classEntity.classNumber}}</p>
+          </div>
+          <div class='col-4  col-sm-4'>
+              <p>{{schedule.subject.subject.subjectName}}</p>
+            </div>
+        </div>
+      </div>
+
+
+      <!-- <div class='col-6  col-sm-2  mt-2 mt-sm-0'>
+            <input *ngIf='item.role.name==="ROLE_STUDENT"' type="button" class='btn btn-info btn-block btn-sm' value='Marks' routerLink='/student_marks/{{item.id}}'>
+          </div>-->
+
+      <div class='offset-3 col-6 offset-sm-0 col-sm-2  mt-2 mt-sm-0'>
+        <input type="button" class='btn btn-info btn-block btn-sm' value='Details' routerLink='/schedule_view/{{schedule.id}}'>
+      </div>
+    </div>
+    <hr>
+
+  </div>
+</div>

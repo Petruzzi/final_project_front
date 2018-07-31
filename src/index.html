@@ -12,3 +12,12 @@
   <app-root></app-root>
 </body>
 </html>
+<script>
+    $(document).ready(function() {
+             $('.klik').click(function() {
+                            console.log('klik');
+                         $('.klik').removeClass('active');
+                          $(this).addClass('active');
+              });
+  });
+</script>

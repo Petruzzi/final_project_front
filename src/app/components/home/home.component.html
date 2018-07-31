@@ -1,0 +1,81 @@
+<nav class="navbar navbar-expand-sm navbar-dark bg-info">
+
+    <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false'
+        aria-label='Toggle navigation'>
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-center" id='navbarNav' *ngIf='activeUser'>
+        <ul class="navbar-nav  ">
+            <li class="nav-item">
+                <a class="nav-link btn klik" routerLink='/profile/0' id='profileBtn'>Profile</a>
+            </li>
+
+
+            <!-- PARENT -->
+            <li class="nav-item">
+                <a class="nav-link btn klik" routerLink='/students/' *ngIf="activeUser.role.name=='ROLE_PARENT'">Students</a>
+            </li>
+
+
+
+            <!-- STUDENT -->
+            <li class="nav-item">
+                <a class="nav-link klik" routerLink='/student_marks/{{activeUser.id}}' *ngIf="activeUser.role.name=='ROLE_STUDENT'">Marks</a>
+            </li>
+
+
+
+            <!-- PROFESSOR -->
+            <li class="nav-item">
+                <a class="nav-link btn klik" routerLink='/class_list/{{activeUser.id}}' *ngIf="activeUser.role.name=='ROLE_PROFESSOR'">Classes Teach</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link btn klik" routerLink='/class_details/by_head_teacher/{{activeUser.id}}' *ngIf="activeUser.role.name=='ROLE_PROFESSOR'">My Class</a>
+            </li>
+
+
+            <!-- ADMIN -->
+
+
+            <li class="nav-item">
+                <a class="nav-link btn klik" routerLink='/class_list' *ngIf="activeUser.role.name=='ROLE_ADMIN'">Classes</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link btn klik" routerLink='/professors' *ngIf="activeUser.role.name=='ROLE_ADMIN'">Professors</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link btn klik" routerLink='/students' *ngIf="activeUser.role.name=='ROLE_ADMIN'">Students</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link klik" routerLink='/parents' *ngIf="activeUser.role.name=='ROLE_ADMIN'" >Parents</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link klik" routerLink='/subject_list' *ngIf="activeUser.role.name=='ROLE_ADMIN'" >Subjects</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link klik" routerLink='/schedule_list' *ngIf="activeUser.role.name=='ROLE_ADMIN'" >Schedule</a>
+            </li>
+
+            <li class="nav-item  ">
+                <a class="nav-link" (click)='logout()'>Logout</a>
+            </li>
+        </ul>
+
+
+
+
+    </div>
+
+
+</nav>
+<app-message></app-message>
+
+<div class="container-fluid">
+    <div *ngIf="activeUser">
+        <router-outlet *ngIf="activeUser.role.name"></router-outlet>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+<div *ngIf='list'>
+  <div *ngFor='let item of list'>
+
+    <div class='row'>
+      <div class='col-12  col-sm-8  '>
+        <div class="row">
+          <div class='col-2  col-sm-2'>
+            <p>#{{item.id}}.</p>
+          </div>
+          <div class='col-5  col-sm-5'>
+            <p>{{item.name}}</p>
+          </div>
+          <div class='col-5  col-sm-5'>
+            <p>{{item.lastname}}</p>
+          </div>
+        </div>
+      </div>
+
+
+      <div class='col-6  col-sm-2  mt-2 mt-sm-0'>
+        <input *ngIf='item.role.name==="ROLE_STUDENT"' type="button" class='btn btn-info btn-block btn-sm' value='Marks' routerLink='/student_marks/{{item.id}}'>
+      </div>
+
+      <div class='col-6  col-sm-2  mt-2 mt-sm-0'>
+        <input type="button" class='btn btn-info btn-block btn-sm' value='Profile' routerLink='/profile/{{item.id}}'>
+      </div>
+    </div>
+    <hr>
+
+  </div>
+</div>

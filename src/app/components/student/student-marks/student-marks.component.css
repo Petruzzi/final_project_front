@@ -1,0 +1,17 @@
+.hover_gray{
+   height:30px; 
+   padding-top: 1px;
+   padding-left: 7px;
+}
+
+.hover_gray:hover {
+    background-color: rgb(237, 237, 237) ;
+    cursor: pointer;
+
+}
+
+.addMarkBtn{
+    width: 24px !important;
+    padding-left:6px;
+    /* height:30px; */
+}

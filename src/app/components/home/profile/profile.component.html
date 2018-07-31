@@ -1,0 +1,171 @@
+<div class="row">
+
+  <div class='col-12 text-center' *ngIf='user && activeUser'>
+    <br>
+    <h1 class='text-center'>Profile</h1>
+
+
+
+    <hr>
+    <p>id : {{user.id}}</p>
+    <hr>
+
+    <p>Name : {{user.name}}</p>
+
+    <hr>
+
+    <p>Username : {{user.username}}</p>
+
+    <hr>
+
+    <p>Lastname : {{user.lastname}}</p>
+
+    <hr>
+
+    <p>Email : {{user.email}}</p>
+
+    <hr>
+
+    <p>Role : {{user.role.name}}</p>
+
+
+    <hr>
+
+
+
+
+
+
+    <!-- FOR PARENT -->
+    <div *ngIf='user.role.name === "ROLE_PARENT" && user.students'>
+      <p>Students : </p>
+      <div  *ngFor='let stu of user.students'>
+      <p>-{{stu.name}} {{stu.lastname}} </p>
+      </div>
+      <hr>
+    </div>
+
+
+
+
+
+    <!-- FOR STUDENT -->
+    <div *ngIf='user.role.name === "ROLE_STUDENT" && studentClass'>
+      <p>Class : {{studentClass.id}}</p>
+
+      <hr>
+    </div>
+
+
+    <!-- FOR PROFESSOR -->
+
+    <div *ngIf='user.role.name === "ROLE_PROFESSOR"'>
+      <p>Can teach:</p>
+      <div *ngFor='let subject of user.subjects'>
+        {{subject.subject.subjectName}} | {{subject.grade.gradeName}}
+      </div>
+
+      <hr>
+
+
+
+      <p>Teach:</p>
+      <div *ngFor='let class of classesTeach'>
+        {{class.grade.gradeName}} | {{class.classNumber}}
+      </div>
+
+      <hr>
+
+
+
+
+
+    </div>
+
+
+
+
+
+    <div>
+
+    </div>
+
+
+    <br>
+
+
+
+    <div class="row" *ngIf='getRole() !== "ROLE_ADMIN" && activeUser.id === user.id '>
+      <div class="offset-sm-4 col-sm-4">
+        <button type='button' class='btn btn-info btn-block btn-sm' routerLink='/edit_profile/{{user.id}}'>
+          Edit Profile
+        </button>
+      </div>
+    </div>
+    <div *ngIf='user.id !== activeUser.id && getRole() !== "ROLE_ADMIN" ' class="offset-2 offset-sm-4 col-8 col-sm-4">
+      <button type='button' class='btn btn-info btn-block btn-sm' (click)='goBack()'>
+        &larr;Back
+      </button>
+    </div>
+
+
+    <div class="row" *ngIf='getRole() === "ROLE_ADMIN"  '>
+
+      <!-- ZBOG RESPONSIVA UBACEN SAMO OFFSET ZA BTN -->
+      <div class="offset-sm-4" *ngIf=' activeUser.id === user.id '></div>
+
+
+
+
+      <div *ngIf='user.id !== activeUser.id' class="offset-2 offset-sm-0 col-8 col-sm-4">
+        <button type='button' class='btn btn-info btn-block btn-sm' (click)='goBack()'>
+          &larr;Back
+        </button>
+      </div>
+
+      <div class="offset-2 offset-sm-0 col-8  col-sm-4">
+        <button type='button' class='btn btn-info btn-block btn-sm' routerLink='/edit_profile/{{user.id}}'>
+          Edit Profile
+        </button>
+      </div>
+
+
+      <div class="offset-2  offset-sm-0 col-8  col-sm-4" *ngIf=' activeUser.id !== user.id '>
+        <button type='button' class='btn btn-danger btn-block  btn-sm' (click)='deleteUser()'>
+          Delete User
+        </button>
+      </div>
+
+
+
+    </div>
+  
+
+
+
+<div *ngIf=' activeUser  && user'>
+  <div *ngIf=' getRole() === "ROLE_ADMIN" && activeUser.id===user.id'>
+    <br><hr><br>
+    <h5 class='text-center'>Log options</h5>
+    <br>
+    <div class='row'>
+
+      <div class="offset-2 offset-sm-2 col-8  col-sm-4">
+        <button type='button' class='btn btn-info btn-block btn-sm' (click)='downloadLog()'>
+          Download Log
+        </button>
+      </div>
+
+      <div class="offset-2 offset-sm-0 col-8  col-sm-4">
+        <button type='button' class='btn btn-info btn-block btn-sm' routerLink='/log_view'>
+          Show Log
+        </button>
+      </div>
+
+
+    </div>
+  </div>
+
+
+</div>
+</div>

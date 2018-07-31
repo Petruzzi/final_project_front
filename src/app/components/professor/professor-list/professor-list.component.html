@@ -1,0 +1,40 @@
+<br>
+  <div class="text-center">
+      <h1>Professor List</h1>
+    </div>
+
+
+
+
+    <div class='offset-3 col-6  offset-sm-4 col-sm-4 ' *ngIf="getRole() === 'ROLE_ADMIN'">
+        <br>
+      <input type="button" class='btn btn-info btn-block btn-sm' value='Add New Professor' routerLink='/add_user/2'>
+    </div>
+
+
+
+    <hr>
+
+
+
+
+    <app-list [list]='professors'></app-list>
+  
+  
+  
+    <!-- <div  *ngIf='professors'>
+      <div class="row" *ngFor='let professor of professors'>
+      
+      <div class='col-12'  >
+        <div routerLink='/profile/{{professor.id}}'>
+          {{professor.id}}|{{professor.name}}|{{professor.lastname}}
+        </div>
+  
+          <hr>
+  
+      </div>
+          
+        
+        
+      </div>
+    </div> -->

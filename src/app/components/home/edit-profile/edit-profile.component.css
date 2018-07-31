@@ -1,0 +1,7 @@
+.nav-tabs .nav-link:not(.active) {
+    border-color: transparent !important;
+}
+
+.x-btn{
+    height: 30px !important;
+}

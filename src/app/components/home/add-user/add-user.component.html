@@ -1,0 +1,205 @@
+
+
+<div *ngIf='studentList && allClasses && subjectsList'>
+
+  <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active border border-info border-bottom-0" id="addNewUser" data-toggle="tab" href="#addNewUser" role="tab"
+        aria-controls="addNewUser" aria-selected="true">Add New User</a>
+    </li>
+
+
+  </ul>
+
+  <div class="tab-content ">
+    <div class="tab-pane p-3 active border border-info" id="addNewUser" role="tabpanel" aria-labelledby="addNewUser">
+      <div class="row align-self-center">
+        <div class=" offset-1 col-10   offset-sm-3 col-sm-6 offset-lg-4 col-lg-4">
+          <form ngNativeValidate (ngSubmit)="addUser(email.value, username.value, name.value, lastname.value, cls.value)">
+              <!--  -->
+            <br>
+            <h3 class='text-center'>Add New User</h3>
+            <br>
+
+
+
+            <div class="form-group">
+              <h6>Email:</h6>
+              <input type="email" class="form-control" id="email" #email placeholder="Type Email  (exemple@gmail.com)" minlength="3" maxlength="25"
+                tabindex="1" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+            </div>
+            <hr>
+            <div class="form-group">
+              <h6>Username:</h6>
+              <input type="text" class="form-control" id="username" #username placeholder="Type Username" minlength="3" maxlength="15"
+                tabindex="2" required>
+            </div>
+            <hr>
+
+
+            <div class="form-group">
+              <h6>Name:</h6>
+              <input type="text" class="form-control" #name placeholder='Type Name (First letter uppercase)' minlength="3" maxlength="15"
+                tabindex="3" required pattern="^[A-Z]{1}[a-z]+$">
+            </div>
+            <hr>
+            <div class="form-group">
+              <h6>Lastname:</h6>
+              <input type="text" class="form-control" id="lastname" #lastname placeholder='Type Lastname (First letter uppercase)' minlength="3"
+                maxlength="15" tabindex="4" required pattern="^[A-Z]{1}[a-z]+$">
+            </div>
+            <hr>
+
+
+            <!-- _______________________________________________________________________ -->
+
+
+            <!-- IF USER IS STUDENT -->
+
+            <div class="form-group" id='classInputForStudent' [hidden]='user.role !== 3'>
+              
+                <h6>Choose Class:</h6>
+                <input list="classes" name="classes" #cls class="form-control">
+                <datalist id="classes" *ngIf='user.role === 3'>
+
+                  <div *ngFor='let class of allClasses'>
+                    <div>
+                      <option value="{{class.id}}.{{class.classNumber}} {{class.grade.gradeName}}"></option>
+
+
+
+                    </div>
+                  </div>
+                </datalist>
+               <hr> 
+            </div>
+            
+
+
+            <!-- IF USER IS STUDENT  END -->
+
+
+
+            <!-- IF USER IS PARENT -->
+
+
+            <!-- *ngIf='studentList ' -->
+            <div class="form-group">
+              <div *ngIf='user.role === 4'>
+                <h6>Student List:</h6>
+                <br>
+                <div *ngIf='user.students'>
+                  <div *ngFor='let student of user.students'>
+                    <div class='row'>
+                      <p class="col-10">
+                        {{student.id}}.{{student.name}} {{student.lastname}}
+                      </p>
+                      <input type="button" value='X' class=" btn btn-sm btn-block btn-danger col-1 x-btn" (click)='removeStudent(student)'>
+                    </div>
+
+
+
+                  </div>
+                </div>
+
+                <br>
+                <form>
+                  <input list="studenti" name="studenti" #student class="form-control">
+                  <datalist id="studenti">
+
+                    <div *ngFor='let student of studentList'>
+                      <div>
+                        <option value="{{student.id}}.{{student.name}} {{student.lastname}}">
+
+
+
+                      </div>
+                    </div>
+                  </datalist>
+                  <br>
+
+                  <input type="submit" value='Add Student' class="btn btn-block btn-info btn-sm" (click)='addStudent(student.value)'>
+                  <br>
+                </form>
+                <hr>
+              </div>
+
+            </div>
+
+
+
+            <!-- IF USER IS PARENT END -->
+
+
+
+            <!-- IF USER IS PROFESSOE -->
+
+
+            <!-- *ngIf=' subjectsList' -->
+            <div class="form-group">
+              <div *ngIf='user.role === 2'>
+                <h6>Subject List:</h6>
+                <br>
+                <div *ngIf='user.subjects'>
+                  <div *ngFor='let subject of user.subjects'>
+                    <div class='row ' *ngIf='subject.subject'>
+                      <p class="col-10" >
+                        {{subject.id}}.{{subject.subject.subjectName}} {{subject.grade.gradeName}}
+                      </p>
+                      <input type="button" value='X' class=" btn btn-sm btn-block btn-danger col-1 x-btn" (click)='removeSubject(subject)'>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <form>
+                  <input list="subjects" name="subjects" #subjects class="form-control">
+                  <datalist id="subjects">
+
+                    <div *ngFor='let subject of subjectsList'>
+                      <div>
+                        <option value="{{subject.id}}.{{subject.subject.subjectName}} {{subject.grade.gradeName}}">
+
+
+
+                      </div>
+                    </div>
+                  </datalist>
+                  <br>
+
+                  <input type="submit" value='Add Subject' class="btn btn-block btn-info btn-sm" (click)='addSubject(subjects.value)'>
+                  <br>
+                </form>
+                <hr>
+              </div>
+
+            </div>
+
+
+
+            <!-- IF USER IS PROFESSOR END -->
+
+
+            <br>
+
+            <div class="form-group">
+              <button type="submit" class="btn btn-info btn-block btn-sm">Submit</button>
+            </div>
+            <button type='button' class="btn btn-info btn-block btn-sm" (click)='goBack()'>
+                &larr;Back
+              </button>
+          </form>
+          <!-- ADD NEW USER  FORM END -->
+
+        </div>
+      </div>
+    </div>
+    <!-- UPDATE TAB END -->
+
+
+
+
+  </div>
+
+
+
+</div>

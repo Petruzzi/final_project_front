@@ -1,0 +1,55 @@
+<br>
+<div class="text-center">
+  <h1>Student List</h1>
+</div>
+
+<div *ngIf="getRole() === 'ROLE_ADMIN'">
+  <div class='offset-3 col-6  offset-sm-4 col-sm-4 '>
+    <br>
+    <input type="button" class='btn btn-info btn-block btn-sm' value='Add New Student' routerLink='/add_user/3'>
+
+
+  </div>
+  <hr>
+
+  
+    <form (ngSubmit)='searchStudentsByStr(searchStr)'>
+<div class="row">
+      <input type="text" class='form-control-sm offset-3 col-4' #searchStr placeholder="Type name or lastname">
+      <div class=' col-2'>
+        <input type="button" class='btn btn-info btn-block btn-sm form-control' value='Search' >
+
+      </div>
+ </div>
+    </form>
+
+ 
+</div>
+
+
+
+<hr>
+
+
+<app-list [list]='students'></app-list>
+
+<!-- <div *ngIf='students'>
+  <div *ngFor='let student of students'>
+
+    <div class='row'>
+      <div routerLink='../student_marks/{{student.id}}' class='col-12  col-sm-8   col-lg-10'>
+        {{student.id}}|{{student.name}}|{{student.lastname}}
+      </div>
+
+      <div class='col-6  col-sm-2 col-lg-1'>
+        <input type="button" class='btn btn-info btn-block btn-sm' value='Marks'>
+      </div>
+
+      <div class='col-6  col-sm-2 col-lg-1'>
+          <input type="button" class='btn btn-info btn-block btn-sm' value='Profile'>
+        </div>
+    </div>
+    <hr>
+
+  </div>
+</div> -->

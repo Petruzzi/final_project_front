@@ -1,0 +1,271 @@
+<div *ngIf='user && activeUser'>
+
+    <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active border border-info border-bottom-0" id="updateProfile" data-toggle="tab" href="#profile" role="tab"
+                aria-controls="profile" aria-selected="true">Update Profile</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link border border-info border-bottom-0" id="updatePassword" data-toggle="tab" href="#password" role="tab"
+                aria-controls="password" aria-selected="false">Update Password</a>
+        </li>
+
+    </ul>
+    <!-- <p>{{user.role.id}}</p> -->
+    <div class="tab-content ">
+        <div class="tab-pane p-3 active border border-info" id="profile" role="tabpanel" aria-labelledby="updateProfile">
+            <div class="row align-self-center">
+                <div class=" offset-1 col-10   offset-sm-3 col-sm-6 offset-lg-4 col-lg-4">
+                    <form ngNativeValidate (ngSubmit)="updateProfile(cls)">
+                        <!-- ngNativeValidate (ngSubmit)(ngSubmit)="setStudentClass(namekkk)" -->
+                        <!-- email.value, username.value, name.value, lastname.value email, username, name, lastname-->
+                        <br>
+                        <h3 class='text-center'>Update Profile</h3>
+                        <br>
+                        <!-- FOR USERS -->
+
+                        <div class="form-group">
+                            <h6>Email:</h6>
+                            <input type="email" [(ngModel)]='user.email' [ngModelOptions]="{standalone: true}" class="form-control" id="email" #email
+                                placeholder="Type Email (exemple@gmail.com) {{user.email}}" minlength="3" maxlength="25" tabindex="1"
+                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <h6>Username:</h6>
+                            <input type="text" [(ngModel)]='user.username' [ngModelOptions]="{standalone: true}" class="form-control" id="username" #username
+                                placeholder="Type Username{{user.username}}" minlength="3" maxlength="15" tabindex="2">
+                        </div>
+                        <hr>
+                        <!-- FOR USERS ENd  -->
+
+
+
+                        <!-- FOR ADMIN -->
+                        <div [hidden]='getRole() !== "ROLE_ADMIN"'>
+                            <!-- *ngIf='activeUser.role.name==="ROLE_ADMIN" ' -->
+                            <div>
+                                <div class="form-group">
+                                    <h6>Name:</h6>
+                                    <input type="text" [(ngModel)]='user.name' [ngModelOptions]="{standalone: true}" class="form-control" #name placeholder='Type Name  (First letter uppercase){{user.name}}'
+                                        minlength="3" maxlength="15" tabindex="3" pattern="^[A-Z]{1}[a-z]+$">
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <h6>Lastname:</h6>
+                                    <input type="text" [(ngModel)]='user.lastname' [ngModelOptions]="{standalone: true}" class="form-control" id="lastname" #lastname
+                                        placeholder='Type Lastname  (First letter uppercase){{user.lastname}}' minlength="3"
+                                        maxlength="15" tabindex="4" pattern="^[A-Z]{1}[a-z]+$">
+                                </div>
+                                <hr>
+                            </div>
+
+
+                            <!-- _______________________________________________________________________ -->
+
+
+                            <!-- IF USER IS STUDENT -->
+
+                            <div class="form-group" [hidden]='user.role.id !== 3'>
+
+                                <h6>Choose Class:</h6>
+                                <input list="classes" name="classes" #cls class="form-control">
+                                <datalist id="classes" *ngIf='user.role.name === "ROLE_STUDENT" && allClasses '>
+
+                                    <div *ngFor='let class of allClasses'>
+                                        <div>
+                                            <option value="{{class.id}}.{{class.classNumber}} {{class.grade.gradeName}}"></option>
+
+                                        </div>
+                                    </div>
+                                </datalist>
+
+                                <hr>
+                            </div>
+
+                            <!-- IF USER IS STUDENT  END -->
+
+
+
+                            <!-- IF USER IS PARENT -->
+
+
+
+                            <div class="form-group" *ngIf='user '>
+                                <div *ngIf='user.role.name === "ROLE_PARENT"'>
+                                    <h6>Student List:</h6>
+                                    <br>
+
+                                    <div *ngFor='let student of user.students'>
+                                        <div class='row'>
+                                            <p class="col-10">
+                                                {{student.id}}.{{student.name}} {{student.lastname}}
+                                            </p>
+                                            <input type="button" value='X' class=" btn btn-sm btn-block btn-danger col-1 x-btn" (click)='removeStudent(student)'>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <form>
+                                        <input list="students" name="students" #student class="form-control">
+                                        <datalist id="students">
+
+                                            <div *ngFor='let student of studentList'>
+                                                <div>
+                                                    <option value="{{student.id}}.{{student.name}} {{student.lastname}}">
+
+
+
+                                                </div>
+                                            </div>
+                                        </datalist>
+                                        <br>
+
+                                        <input type="submit" value='Add Student' class="btn btn-block btn-info btn-sm" (click)='addStudent(student.value)'>
+                                        <br>
+                                    </form>
+                                    <hr>
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- IF USER IS PARENT END -->
+
+
+
+                            <!-- IF USER IS PROFESSOE -->
+
+
+
+                            <div class="form-group" *ngIf='user && subjectsList'>
+                                <div *ngIf='user.role.name === "ROLE_PROFESSOR"'>
+                                    <h6>Subject List:</h6>
+                                    <br>
+
+                                    <div *ngFor='let subject of user.subjects'>
+                                        <div class='row '>
+                                            <p class="col-10">
+                                                {{subject.id}}.{{subject.subject.subjectName}} {{subject.grade.gradeName}}
+                                            </p>
+                                            <input type="button" value='X' class=" btn btn-sm btn-block btn-danger col-1 x-btn" (click)='removeSubject(subject)'>
+                                        </div>
+                                    </div>
+
+                                    <br>
+                                    <form>
+                                        <input list="subjects" name="subjects" #subjects class="form-control">
+                                        <datalist id="subjects">
+
+                                            <div *ngFor='let subject of subjectsList'>
+                                                <div>
+                                                    <option value="{{subject.id}}.{{subject.subject.subjectName}} {{subject.grade.gradeName}}">
+
+
+
+                                                </div>
+                                            </div>
+                                        </datalist>
+                                        <br>
+
+                                        <input type="submit" value='Add Subject' class="btn btn-block btn-info btn-sm" (click)='addSubject(subjects.value)'>
+                                        <br>
+                                    </form>
+                                    <hr>
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- IF USER IS PROFESSOR END -->
+
+
+                            <!-- 
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="#" placeholder="Enter password">
+                            </div>
+                         -->
+                          </div>
+                            <!-- FOR ADMIN END -->
+
+                       
+
+                        <br>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-info btn-block btn-sm">Submit</button>
+                        </div>
+                        <button type='button' class='btn btn-info btn-block btn-sm' (click)='goBack()'>
+                            &larr;Back
+                        </button>
+
+                    </form>
+                    <!-- UPDATE FORM END -->
+
+                </div>
+            </div>
+        </div>
+        <!-- UPDATE TAB END -->
+
+        <div class="tab-pane p-3 border border-info" id="password" role="tabpanel" aria-labelledby="updatePassword">
+            <div class="row align-self-center">
+                <div class=" offset-1 col-10   offset-sm-3 col-sm-6 offset-lg-4 col-lg-4">
+                    <form *ngIf='activeUser.id === user.id' ngNativeValidate (ngSubmit)="updatePassword(oldP.value, newP.value, repP.value)">
+
+                        <br>
+                        <h3 class='text-center'>Update Password</h3>
+                        <br>
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="oldPassword" #oldP placeholder="Enter old password" tabindex="1" minlength="3"
+                                maxlength="15" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="newPassword" #newP placeholder="Enter new password" tabindex="2" minlength="3"
+                                maxlength="15" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="repeatedPassword" #repP placeholder="Repeat new password" tabindex="3" minlength="3"
+                                maxlength="15" required>
+                        </div>
+                        <br>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-info btn-block btn-sm">Submit</button>
+                        </div>
+
+
+                        <button type='button' class='btn btn-info btn-block btn-sm' (click)='goBack()'>
+                            &larr;Back
+                        </button>
+
+                    </form>
+                    <!-- PASS FORM END -->
+
+                    <!-- GENERATE PASSWORD -->
+                    <div *ngIf='activeUser.id !== user.id'>
+                        <br>
+                        <h3 class='text-center'>Reset User Password</h3>
+                        <br>
+                        <br>
+                        <button class="btn btn-info btn-block btn-sm" (click)='resetUserPassword()'>Reset Password</button>
+                        <button type='button' class='btn btn-info btn-block btn-sm' (click)='goBack()'>
+                            &larr;Back
+                        </button>
+                        <br>
+                        <br>
+                    </div>
+
+                    <!-- GENERATE PASS END -->
+                </div>
+
+            </div>
+
+
+        </div>
+        <!-- PASS FORM END -->
+
+    </div>
+</div>

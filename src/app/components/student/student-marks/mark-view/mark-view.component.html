@@ -1,0 +1,74 @@
+<div class="row">
+
+  <div class='col-12' *ngIf='mark'>
+    <!-- <hr> -->
+
+
+
+
+
+
+    <br>
+    <h1 class='text-center'>Mark</h1>
+
+    <hr>
+    <div  *ngIf='getRole() === "ROLE_PROFESSOR" && activeUser  || getRole() === "ROLE_ADMIN"  '>
+      <div class="row" *ngIf='  getRole() === "ROLE_ADMIN" || activeUser.id===mark.schedule.teacher.id  '>
+        <div class="offset-0  offset-sm-2"></div>
+        <div class='col-6  col-sm-4 mt-2 mb-2'>
+          <input type="button" class='btn btn-info btn-block btn-sm' value='Edit' routerLink='/add_mark/edit/{{mark.id}}'>
+        </div>
+
+
+
+        <div class='col-6  col-sm-4 mt-2 mb-2'>
+          <input type="button" class='btn btn-danger btn-block btn-sm' value='Delete' (click)='deleteMark()'>
+        </div>
+        <hr>
+      </div>
+    </div>
+
+
+
+
+    <p>id | {{mark.id}}</p>
+    <hr>
+
+    <p>Value | {{mark.markValue}}</p>
+
+    <hr>
+
+    <p>semester | {{mark.semester}}</p>
+
+    <hr>
+
+    <p>dateRated | {{mark.dateRated}}</p>
+
+    <hr>
+
+    <p>student | {{mark.student.id}}</p>
+
+    <hr>
+
+    <p>desc | {{mark.description}}</p>
+
+    <hr>
+
+    <p>rated by| {{mark.ratedBy.name}}</p>
+
+    <hr>
+
+
+  </div>
+
+</div>
+<div class="row">
+  <div class="offset-3 offset-sm-4"></div>
+
+
+  <div class=' col-6  col-sm-4 mt-2 mb-2'>
+    <button type='button' class='btn btn-info btn-block  btn-sm ' (click)='goBack()'>
+      &larr;Back
+    </button>
+  </div>
+</div>

@@ -1,0 +1,355 @@
+<div *ngIf='!oneClass'>
+  proba test
+</div>
+
+<div *ngIf='oneClass &&  studentList && availableHeadTeachers'>
+  <div *ngIf='oneClass.id'>
+    <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active border border-info border-bottom-0" id="updateClass" data-toggle="tab" href="#class" role="tab"
+          aria-controls="class" aria-selected="true">Update Class</a>
+      </li>
+
+
+    </ul>
+    <!-- <p>{{user.role.id}}</p> -->
+    <div class="tab-content ">
+      <div class="tab-pane p-3 active border border-info" id="class" role="tabpanel" aria-labelledby="updateClass">
+        <div class="row align-self-center">
+          <div class=" offset-1 col-10   offset-sm-3 col-sm-6 offset-lg-4 col-lg-4">
+            <form ngNativeValidate (submit)='updateClass(headTeacher.value)'>
+              <!-- (ngSubmit)="" -->
+              <br>
+              <h3 class='text-center'>Update Class</h3>
+              <br>
+
+              <br>
+
+              <!-- HEAD TEACHER -->
+
+
+
+
+
+              <div class="form-group">
+                <h6>Set Head Teacher:</h6>
+
+
+                <select name="headTeacher" #headTeacher class='form-control'>
+
+
+                  <option *ngIf='oneClass.headTeacher' value="{{oneClass.headTeacher.id}}">{{oneClass.headTeacher.id}}.{{oneClass.headTeacher.name}} {{oneClass.headTeacher.lastname}}</option>
+                  <option value="{{professor.id}}" *ngFor='let professor of availableHeadTeachers'>{{professor.id}}.{{professor.name}} {{professor.lastname}}</option>
+
+                </select>
+              </div>
+
+
+              <hr>
+
+              <!-- HEAD TEACHER END -->
+
+
+
+
+              <!-- CHOSE CLASS -->
+
+
+
+
+              <div class="form-group">
+                <h6>Choose Class Number:</h6>
+                <select name="classNumber" #classNumber class="form-control" [(ngModel)]='oneClass.classNumber' [ngModelOptions]="{standalone: true}">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+
+                </select>
+              </div>
+              <hr>
+
+              <!-- CHOSE CLASS END -->
+
+
+
+
+
+
+              <!-- CHOOSE GRADE -->
+
+              <div class="form-group">
+                <h6>Choose Grade:</h6>
+                <select name="classGrade" #classGrade class="form-control" [(ngModel)]='oneClass.grade.gradeValue' [ngModelOptions]="{standalone: true}">
+                  <option value="1">I</option>
+                  <option value="2">II</option>
+                  <option value="3">III</option>
+                  <option value="4">IV</option>
+                  <option value="5">V</option>
+                  <option value="6">VI</option>
+                  <option value="7">VII</option>
+                  <option value="8">VIII</option>
+
+                </select>
+              </div>
+              <hr>
+              <!-- CHOOSE GRADE END -->
+
+              <!-- ADD STUDENT -->
+              <div>
+
+                <div class="form-group">
+                  <h6>Student List:</h6>
+                  <br>
+                  <div *ngIf='oneClass'></div>
+                  <div *ngFor='let student of oneClass.students'>
+
+                    <div class='row'>
+                      <p class="col-10">
+                        {{student.id}}.{{student.name}} {{student.lastname}}
+                      </p>
+                      <input type="button" value='X' class=" btn btn-sm btn-block btn-danger col-1 x-btn" (click)='removeStudent(student)'>
+                    </div>
+
+                  </div>
+                  <br>
+                  <form>
+                    <input list="studentss" name="studentss" #a class="form-control">
+                    <datalist id="studentss">
+
+                      <div *ngFor='let student of studentList'>
+                        <div>
+                          <option value="{{student.id}}.{{student.name}} {{student.lastname}}">
+
+
+
+                        </div>
+                      </div>
+                    </datalist>
+                    <br>
+
+                    <input type="submit" value='Add Student' class="btn btn-block btn-info btn-sm" (click)='addStudent(a.value)'>
+                    <br>
+                  </form>
+
+                </div>
+
+                <hr>
+              </div>
+              <!-- ADD STUDENT END -->
+
+
+
+
+              <br>
+
+              <div class="form-group">
+                <button type="submit" class="btn btn-info btn-block btn-sm">Submit</button>
+              </div>
+
+              <button type='button' class='btn btn-info btn-block btn-sm' (click)='goBack()'>
+                &larr;Back
+              </button>
+
+
+              <!-- (click)='saveProfileChanges(user)' -->
+            </form>
+            <!-- UPDATE FORM END -->
+
+          </div>
+        </div>
+      </div>
+      <!-- UPDATE TAB END -->
+
+
+
+
+    </div>
+
+
+  </div>
+</div>
+
+
+
+
+<!-- EDIT TEMPLATE END -->
+
+<!-- 
+#################################################################################
+#################################################################################
+#################################################################################
+################################################################################# -->
+
+
+<!-- ADD NEW TEMPLATE_________________________________________________________________________________ -->
+
+<div *ngIf='oneClass'>
+
+  <div *ngIf='oneClass.id==0'>
+
+    <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active border border-info border-bottom-0" id="addNewClass" data-toggle="tab" href="#newClass" role="tab"
+          aria-controls="newClass" aria-selected="true">Create New Class</a>
+      </li>
+
+
+    </ul>
+    <!-- <p>{{user.role.id}}</p> -->
+    <div class="tab-content ">
+      <div class="tab-pane p-3 active border border-info" id="newClass" role="tabpanel" aria-labelledby="addNewClass">
+        <div class="row align-self-center">
+          <div class=" offset-1 col-10   offset-sm-3 col-sm-6 offset-lg-4 col-lg-4">
+            <form ngNativeValidate (submit)='updateClass(headTeacher.value,classNumber.value,classGrade.value)'>
+              <!-- (ngSubmit)="" -->
+              <br>
+              <h3 class='text-center'>Create New Class</h3>
+              <br>
+              <br>
+
+              <!-- HEAD TEACHER -->
+
+
+
+
+
+              <div class="form-group">
+                <h6>Set Head Teacher:</h6>
+
+
+                <select name="headTeacher" #headTeacher class='form-control'>
+
+
+                  <!-- <option value="{{oneClass.headTeacher.id}}">{{oneClass.headTeacher.id}}.{{oneClass.headTeacher.name}} {{oneClass.headTeacher.lastname}}</option> -->
+                  <option value="{{professor.id}}" *ngFor='let professor of availableHeadTeachers'>{{professor.id}}.{{professor.name}} {{professor.lastname}}</option>
+
+                </select>
+              </div>
+
+
+              <hr>
+
+              <!-- HEAD TEACHER END -->
+
+
+
+
+              <!-- CHOSE CLASS -->
+
+
+
+
+              <div class="form-group">
+                <h6>Choose Class Number:</h6>
+                <select name="classNumber" #classNumber class="form-control">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+
+                </select>
+              </div>
+              <hr>
+
+              <!-- CHOSE CLASS END -->
+
+
+
+
+
+
+              <!-- CHOOSE GRADE -->
+
+              <div class="form-group">
+                <h6>Choose Grade:</h6>
+                <select name="classGrade" #classGrade class="form-control">
+                  <option value="1">I</option>
+                  <option value="2">II</option>
+                  <option value="3">III</option>
+                  <option value="4">IV</option>
+                  <option value="5">V</option>
+                  <option value="6">VI</option>
+                  <option value="7">VII</option>
+                  <option value="8">VIII</option>
+
+                </select>
+              </div>
+              <hr>
+              <!-- CHOOSE GRADE END -->
+
+              <!-- ADD STUDENT -->
+              <div>
+                <h6>Student List:</h6>
+                <br>
+                <div class="form-group">
+                  <div *ngIf='oneClass !== udefined'>
+                    <div *ngFor='let student of oneClass.students'>
+                      <div class='row'>
+                        <p class="col-10">
+                          {{student.id}}.{{student.name}} {{student.lastname}}
+                        </p>
+
+
+                        <input type="button" value='X' class=" btn btn-sm btn-block btn-danger col-1 x-btn" (click)='removeStudent(student)'>
+                      </div>
+                    </div>
+                  </div>
+
+                  <br>
+                  <form>
+                    <input list="addStudent" name="addStudent" #a class='form-control'>
+                    <datalist id="addStudent">
+
+                      <div *ngFor='let student of studentList'>
+                        <div>
+                          <option value="{{student.id}}.{{student.name}} {{student.lastname}}">
+
+
+
+                        </div>
+                      </div>
+                    </datalist>
+                    <br>
+                    <input type="submit" value='Add Student' class="btn btn-block btn-info btn-sm" (click)='addStudent(a.value)'>
+                    <br>
+                  </form>
+
+                </div>
+
+                <hr>
+              </div>
+              <!-- ADD STUDENT END -->
+
+
+
+
+              <br>
+
+              <div class="form-group">
+                <button type="submit" class="btn btn-info btn-block btn-sm">Submit</button>
+              </div>
+
+              <button type='button' class='btn btn-info btn-block btn-sm' (click)='goBack()'>
+                &larr;Back
+              </button>
+
+            </form>
+            <!-- UPDATE FORM END -->
+
+          </div>
+        </div>
+      </div>
+      <!-- UPDATE TAB END -->
+
+
+
+
+    </div>
+
+
+
+
+
+  </div>
+</div>

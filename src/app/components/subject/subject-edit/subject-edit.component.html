@@ -1,0 +1,353 @@
+<div *ngIf='subject'>
+  <div *ngIf='subject.id'>
+    <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active border border-info border-bottom-0" id="updateSubject" data-toggle="tab" href="#subject" role="tab"
+          aria-controls="subject" aria-selected="true">Update Subject</a>
+      </li>
+
+
+    </ul>
+    <div class="tab-content ">
+      <div class="tab-pane p-3 active border border-info" id="subject" role="tabpanel" aria-labelledby="updateSubject">
+        <div class="row align-self-center">
+          <div class=" offset-1 col-10   offset-sm-3 col-sm-6 offset-lg-4 col-lg-4">
+            <form ngNativeValidate (submit)='updateSubject()'>
+              <br>
+              <h3 class='text-center'>Update Subject</h3>
+              <br>
+
+              <br>
+
+
+
+
+
+              <!-- CHOOSE STATUS -->
+
+
+              <div class="form-group">
+                <h6>Subject Status:</h6>
+
+
+                <select name="subjectStatus" #subjectStatusInput class='form-control' [(ngModel)]='subject.subjectStatus'>
+                  <option value="OBLIGATORY">Obligatory</option>
+                  <option value="ELECTIVE">Elective</option>
+
+
+                </select>
+              </div>
+
+
+              <hr>
+
+              <!-- CHOOSE STATUS  END-->
+
+              <!-- AFFECT AVG -->
+
+
+
+
+
+              <div class="form-group">
+                <h6>Does the subject affect the average:</h6>
+
+
+                <select name="affectAvg" #affectAvgInput class='form-control' [(ngModel)]='subject.affectAvg' [ngModelOptions]="{standalone: true}">
+                  <option value="true">Yes</option>
+                  <option value="false">No</option>
+
+
+                </select>
+              </div>
+
+
+              <hr>
+
+              <!-- AFFECT AVG END -->
+
+
+
+              <!-- CHOSE CLASS LOAD -->
+
+
+
+
+              <div class="form-group">
+                <h6>Choose Class Load:</h6>
+                <select name="classLoad" #classLoadInput class="form-control" [(ngModel)]='subject.classLoad' [ngModelOptions]="{standalone: true}">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+
+                </select>
+              </div>
+              <hr>
+
+              <!-- CHOSE CLASS LOAD END -->
+
+
+              <!-- CHOOSE GRADE -->
+
+              <div class="form-group">
+                <h6>Choose Grade:</h6>
+                <select name="classGrade" #classGradeInput class="form-control" [(ngModel)]='subject.grade.id' [ngModelOptions]="{standalone: true}">
+                  <option value="1">I</option>
+                  <option value="2">II</option>
+                  <option value="3">III</option>
+                  <option value="4">IV</option>
+                  <option value="5">V</option>
+                  <option value="6">VI</option>
+                  <option value="7">VII</option>
+                  <option value="8">VIII</option>
+
+                </select>
+              </div>
+              <hr>
+              <!-- CHOOSE GRADE END -->
+
+              <!-- ADD SUBJECT -->
+
+              <div class="form-group">
+                <h6>Choose Subject:</h6>
+
+
+                <select name="subject" #subjectInput class='form-control' [(ngModel)]='subject.subject.id' [ngModelOptions]="{standalone: true}">
+
+
+                  <!-- <option value="{{oneClass.headTeacher.id}}">{{oneClass.headTeacher.id}}.{{oneClass.headTeacher.name}} {{oneClass.headTeacher.lastname}}</option>  -->
+                  <option value="{{sub.id}}" *ngFor='let sub of subjectNames'>{{sub.subjectName}}</option>
+
+                </select>
+              </div>
+
+
+              <hr>
+              <!-- ADD SUBJECT END -->
+
+
+
+
+              <br>
+
+              <div class="form-group">
+                <button type="submit" class="btn btn-info btn-block btn-sm">Submit</button>
+              </div>
+
+              <button type='button' class='btn btn-info btn-block btn-sm' (click)='goBack()'>
+                &larr;Back
+              </button>
+
+            </form>
+            <!-- UPDATE FORM END -->
+
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+    </div>
+    <!-- UPDATE TAB END -->
+
+  </div>
+</div>
+
+
+
+
+<!-- EDIT TEMPLATE END -->
+
+<!-- 
+  #################################################################################
+  #################################################################################
+  #################################################################################
+  ################################################################################# -->
+
+
+<!-- ADD NEW TEMPLATE_________________________________________________________________________________ -->
+
+
+<!--  -->
+<div *ngIf='subject'>
+
+  <div *ngIf='subject.id== 0 '>
+
+    <ul class="nav nav-tabs border-0" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active border border-info border-bottom-0" id="addNewSubject" data-toggle="tab" href="#newSubject" role="tab"
+          aria-controls="newSubject" aria-selected="true">Create New Subject</a>
+      </li>
+
+
+    </ul>
+    <!-- <p>{{user.role.id}}</p> -->
+    <div class="tab-content ">
+      <div class="tab-pane p-3 active border border-info" id="newSubject" role="tabpanel" aria-labelledby="addNewSubject">
+        <div class="row align-self-center">
+          <div class=" offset-1 col-10   offset-sm-3 col-sm-6 offset-lg-4 col-lg-4">
+            <form ngNativeValidate (submit)='updateSubject(subjectStatus.value, affectAvg.value, classLoad.value, classGrade.value, subject.value)'>
+              <!-- (ngSubmit)="" updateClass(subjectStatus.value, headTeacher.value,classNumber.value,classGrade.value)-->
+              <br>
+              <h3 class='text-center'>Create New Subject</h3>
+              <br>
+              <br>
+
+
+
+
+              <!-- CHOOSE STATUS -->
+
+
+              <div class="form-group">
+                <h6>Subject Status:</h6>
+
+
+                <select name="subjectStatus" #subjectStatus class='form-control'>
+                  <option value="OBLIGATORY">Obligatory</option>
+                  <option value="ELECTIVE">Elective</option>
+
+
+                </select>
+              </div>
+
+
+              <hr>
+
+              <!-- CHOOSE STATUS  END-->
+
+              <!-- AFFECT AVG -->
+
+
+
+
+
+              <div class="form-group">
+                <h6>Does the subject affect the average:</h6>
+
+
+                <select name="affectAvg" #affectAvg class='form-control'>
+                  <option value="true">Yes</option>
+                  <option value="false">No</option>
+
+
+                </select>
+              </div>
+
+
+              <hr>
+
+              <!-- AFFECT AVG END -->
+
+
+
+
+              <!-- CHOSE CLASS LOAD -->
+
+
+
+
+              <div class="form-group">
+                <h6>Choose Class Load:</h6>
+                <select name="classLoad" #classLoad class="form-control">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+
+                </select>
+              </div>
+              <hr>
+
+              <!-- CHOSE CLASS LOAD END -->
+
+
+
+
+
+
+              <!-- CHOOSE GRADE -->
+
+              <div class="form-group">
+                <h6>Choose Grade:</h6>
+                <select name="classGrade" #classGrade class="form-control">
+                  <option value="1">I</option>
+                  <option value="2">II</option>
+                  <option value="3">III</option>
+                  <option value="4">IV</option>
+                  <option value="5">V</option>
+                  <option value="6">VI</option>
+                  <option value="7">VII</option>
+                  <option value="8">VIII</option>
+
+                </select>
+              </div>
+              <hr>
+              <!-- CHOOSE GRADE END -->
+
+              <!-- ADD SUBJECT -->
+
+              <div class="form-group">
+                <h6>Choose Subject:</h6>
+
+
+                <select name="subject" #subject class='form-control'>
+
+
+                  <!-- <option value="{{oneClass.headTeacher.id}}">{{oneClass.headTeacher.id}}.{{oneClass.headTeacher.name}} {{oneClass.headTeacher.lastname}}</option>  -->
+                  <option value="{{sub.id}}" *ngFor='let sub of subjectNames'>{{sub.subjectName}}</option>
+
+                </select>
+              </div>
+
+
+              <hr>
+              <!-- ADD SUBJECT END -->
+
+
+
+
+              <br>
+
+              <div class="form-group">
+                <button type="submit" class="btn btn-info btn-block btn-sm">Submit</button>
+              </div>
+
+
+              <button type='button' class='btn btn-info btn-block btn-sm' (click)='goBack()'>
+                  &larr;Back
+                </button>
+
+                
+            </form>
+            <!-- UPDATE FORM END -->
+
+          </div>
+        </div>
+      </div>
+      <!-- UPDATE TAB END -->
+
+
+
+
+    </div>
+
+
+
+  </div>
+</div>

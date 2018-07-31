@@ -1,0 +1,33 @@
+<br>
+<div class="text-center">
+  <h1>Parent List</h1>
+</div>
+
+
+<div class='offset-3 col-6  offset-sm-4 col-sm-4 ' *ngIf="getRole() === 'ROLE_ADMIN'">
+  <br>
+  <input type="button" class='btn btn-info btn-block btn-sm' value='Add New Parent' routerLink='/add_user/4'>
+</div>
+
+
+<hr>
+
+
+<app-list [list]='parents'></app-list>
+
+<!-- <div *ngIf='parents'>
+  <div class="row" *ngFor='let parent of parents'>
+
+    <div class='col-12'>
+      <div routerLink='../profile/{{parent.id}}'>
+        {{parent.id}}|{{parent.name}}|{{parent.lastname}}
+      </div>
+
+      <hr>
+
+    </div>
+
+
+
+  </div>
+</div> -->

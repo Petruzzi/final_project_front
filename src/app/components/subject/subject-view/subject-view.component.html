@@ -1,0 +1,64 @@
+<br>
+<div class="text-center">
+  <h1>Subject Info</h1>
+</div>
+<!-- <br> -->
+<hr>
+
+<div *ngIf='subject' class='text-center'>
+
+  <!-- <div class="row"> -->
+
+
+
+  <p>id : {{subject.id}}</p>
+  <hr>
+
+  <p>Grade : {{subject.grade.gradeName}}</p>
+
+  <hr>
+
+  <p>Subject name : {{subject.subject.subjectName}}</p>
+
+  <hr>
+
+  <p>Class Load : {{subject.classLoad}}</p>
+
+  <hr>
+
+  <p>Sunject Status : {{subject.subjectStatus}}</p>
+
+  <hr>
+  <p>Does affect avg : {{subject.affectAvg}}</p>
+
+  <hr>
+ 
+  <!-- *ngIf='getRole() !== "ROLE_ADMIN"' -->
+  <div class="row">
+    <!-- ZBOG RESPONSIVA UBACEN SAMO OFFSET ZA BTN -->
+
+    <div class="offset-2 offset-sm-0 col-8 col-sm-4">
+      <button type='button' class='btn btn-info btn-block  btn-sm my-1' (click)='goBack()'>
+        &larr;Back
+      </button>
+    </div>
+    <div class="offset-2 offset-sm-0 col-8 col-sm-4">
+      <button type='button' class='btn btn-info btn-block btn-sm my-1' routerLink='/subject_edit/{{subject.id}}'>
+        Edit Subject
+      </button>
+    </div>
+
+
+    <div class="offset-2 offset-sm-0 col-8 col-sm-4">
+      <button type='button' class='btn btn-danger btn-block  btn-sm my-1' (click)='deleteSubject()'>
+        Delete Subject
+      </button>
+    </div>
+
+  </div>
+
+
+  <!-- </div> -->
+
+
+</div>
